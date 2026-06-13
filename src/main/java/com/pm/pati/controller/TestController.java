@@ -9,4 +9,9 @@ public class TestController {
     public String test(){
         return "testing this by me again, gradle build check again";
     }
+
+    @GetMapping("/heartBeat")
+    public String heartBeat(){
+        return "heat beat is okay!";
+    }
 }
