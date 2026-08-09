@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,12 +45,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "products", key = "#id")
     public ProductResponseDto getProductById(Long id) {
         Product product = findProductById(id);
         return mapToResponseDto(product);
     }
 
     @Override
+    @CachePut(value = "products", key = "#id")
     public ProductResponseDto updateProduct(Long id, ProductRequestDto dto) {
         Product product = findProductById(id);
         product.setName(dto.getName());
@@ -60,6 +65,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(value = "products", key = "#id")
     public void deleteProduct(Long id) {
         Product product = findProductById(id);
         productRepository.delete(product);
