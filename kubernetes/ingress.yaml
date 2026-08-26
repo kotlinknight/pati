@@ -3,15 +3,14 @@ kind: Ingress
 metadata:
   name: pati-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    # This rewrite-target handles removing /api before it hits your Spring Boot app
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: /api(/|$)(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: pati-backend-service

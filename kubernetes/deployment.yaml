@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: pati-backend
-        image: jithukrishnaju/pati-backend:latest
+        image: ghcr.io/kotlinknight/pati:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
