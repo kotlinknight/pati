@@ -51,6 +51,9 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
+    - name: Disable TLS verification for AKS cluster
+      run: kubectl config set-cluster student-cluster --insecure-skip-tls-verify=true
+
     - name: Deploy to AKS Cluster
       run: |
         kubectl apply -f kubernetes/deployment.yaml --validate=false
