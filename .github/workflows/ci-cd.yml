@@ -2,7 +2,7 @@ name: CI/CD Pipeline to AKS
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
